@@ -1,0 +1,21 @@
+{
+  "name": "advent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "day2/app.js",
+  "dependencies": {
+    "jest": "^27.4.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "testEnvironment": "jsdom"
+  }
+}
