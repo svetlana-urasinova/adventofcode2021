@@ -5,6 +5,6 @@ export const countIncreases = (data, offset) => {
     return arr.reduce((acc, el, i) => (i > offset - 1 && el > arr[i - offset]) ? acc + 1 : acc, 0);
 }
 
-document.onload = () => {
-    document.querySelector('.app').innerHTML = countIncreases(data);
+window.onload = () => {    
+    document.querySelector('.app').innerHTML = countIncreases(data, 1);
 }
