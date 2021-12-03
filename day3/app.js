@@ -26,16 +26,21 @@ const findRating = (data, mode) => {
     return data[0];
 }
 
+const generatePower = data => {
+    const gamma = data[0].split('').map((_, i) => findMostCommonBit(data, i)).join('');
+    const epsilon = invert(gamma);
+    return {gamma, epsilon};    
+}
+
+const generateLifeSupport = data => {
+    const gamma = findRating(data, 'max');
+    const epsilon = findRating(data, 'min');    
+    return {gamma, epsilon};
+}
+
 const generate = (str, mode) => {
     const data = prepareData(str);
-    let gamma, epsilon;
-    if (mode === 'power') {
-        gamma = data[0].split('').map((_, i) => findMostCommonBit(data, i)).join('');
-        epsilon = invert(gamma);    
-    } else if (mode === 'lifesupport') {
-        gamma = findRating(data, 'max');
-        epsilon = findRating(data, 'min');
-    }
+    const {gamma, epsilon} = mode === 'power' ? generatePower(data) : generateLifeSupport(data);
     return binToDec(gamma) * binToDec(epsilon);
 }
 
