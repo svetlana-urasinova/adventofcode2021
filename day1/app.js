@@ -6,5 +6,5 @@ export const countIncreases = (data, offset) => {
 }
 
 window.onload = () => {    
-    document.querySelector('.app').innerHTML = countIncreases(data, 1);
+    document.querySelector('.app').innerHTML = countIncreases(data, 3);
 }
