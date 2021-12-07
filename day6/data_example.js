@@ -1,0 +1,1 @@
+export const data_example = `3,4,3,1,2`;
