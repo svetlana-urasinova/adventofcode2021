@@ -1,10 +1,23 @@
-export const data = `7313511551
-3724855867
-2374331571
-4438213437
-6511566287
-6727245532
-3736868662
-2348138263
-2417483121
-8812617112`;
+export const data = `he-JK
+wy-KY
+pc-XC
+vt-wy
+LJ-vt
+wy-end
+wy-JK
+end-LJ
+start-he
+JK-end
+pc-wy
+LJ-pc
+at-pc
+xf-XC
+XC-he
+pc-JK
+vt-XC
+at-he
+pc-he
+start-at
+start-XC
+at-LJ
+vt-JK`;
