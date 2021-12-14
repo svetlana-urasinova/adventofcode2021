@@ -36,18 +36,18 @@ const getFrequency = polymer => {
         acc[el] = acc[el] ? ++acc[el] : 1;
         return acc;
     }, {});
-    return Object.entries(frequencies).sort((a, b) => a[1] - b[1]).map(arr => {return {el: arr[0], frequency: arr[1]}});
+    return Object.entries(frequencies).sort((a, b) => a[1] - b[1]).map(arr => {return {el: arr[0], val: arr[1]}});
 }
 
 const partOne = data => {
     const { template, rules } = parseData(data);
     const polymer = getPolymer(template, rules, 10);
     const frequencies = getFrequency(polymer);
-    
+    return frequencies[frequencies.length - 1].val - frequencies[0].val;    
 }
 
 window.onload = () => {
-    document.querySelector('.app').innerHTML = partOne(data_example);
+    document.querySelector('.app').innerHTML = partOne(data);
 }
 
 export { partOne };
