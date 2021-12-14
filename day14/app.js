@@ -3,12 +3,12 @@ import { data } from "./data.js";
 
 const parseData = data => data.split(/\n/);
 
-const countDots = data => {
-    const manual = parseData(data);
+const findMostCommonElement = data => {
+    const { template, rules } = parseData(data);
 }
 
 window.onload = () => {
-    document.querySelector('.app').innerHTML = countDots(data, true);
+    document.querySelector('.app').innerHTML = findMostCommonElement(data);
 }
 
-export { countDots };
+export { findMostCommonElement };
