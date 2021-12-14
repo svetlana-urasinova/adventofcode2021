@@ -20,39 +20,70 @@ const parseData = data => {
     return vertices;
 }
 
-const findPaths = (paths, vertices, smallCavesVisitTwice, k=0) => {
-    k++;
-        const newPaths = [];
-        let done = true;
+const findPaths = (paths, vertices) => {
+    const newPaths = [];
+    let done = true;
 
-        paths.forEach(path => {
-            const last = path[path.length - 1];
-            if (last === 'end') {
-                newPaths.push(path);
-            } else {
-                vertices[last].connections.forEach(con => {
-                    if (con !== 'start' && 
-                        (vertices[con].repeatable || !path.includes(con))) {
-                        vertices[con] = {...vertices[con], visited: true};
-                        newPaths.push([...path, con]);
-                        done = false;
-                    }
-                });
-            }
-        });
+    paths.forEach(path => {
+        const last = path[path.length - 1];
+        if (last === 'end') {
+            newPaths.push(path);
+        } else {
+            vertices[last].connections.forEach(con => {
+                if (con === 'start') return;
+                if (vertices[con].repeatable || !path.includes(con)) {
+                    vertices[con] = {...vertices[con], visited: true};
+                    newPaths.push([...path, con]);
+                    done = false;
+                }
+            });
+        }
+    });
 
-        return (done === true || k > 50) ? newPaths : findPaths(newPaths, vertices, smallCavesVisitTwice, k);
+    return done === true ? newPaths : findPaths(newPaths, vertices);
 }
 
-const findPossiblePaths = (data, smallCavesVisitTwice=false) => {
+const findPathsWithSecondChance = (paths, vertices, k=0) => {
+    k++;
+    const newPaths = [];
+    let done = true;
+
+    paths.forEach(path => {
+        const last = path.content.slice(-1)[0];
+        if (last === 'end') {
+            newPaths.push(path);
+        } else {
+            vertices[last].connections.forEach(con => {
+                let double = path.double;
+                if (con === 'start') return;
+                if (!vertices[con].repeatable && path.content.includes(con)) {
+                    if (double) { return; }
+                    double = true;
+                } 
+
+                vertices[con] = {...vertices[con], visited: true};
+                newPaths.push({content: [...path.content, con], double});
+                done = false;
+            });
+        }
+    });
+
+    return done === true ? newPaths : findPathsWithSecondChance(newPaths, vertices, k);
+}
+
+const findPossiblePaths = (data, secondChance=false) => {
     const vertices = parseData(data);
-    const res = findPaths([['start']], vertices, smallCavesVisitTwice);
-    //console.log(res.sort((a, b) => a.length - b.length));
+    let res;
+    if (secondChance) {
+        res = findPathsWithSecondChance([{content: ['start'], double: false}], vertices);
+    } else {
+        res = findPaths([['start']], vertices);
+    }
     return res.length;
 }
 
 window.onload = () => {
-    document.querySelector('.app').innerHTML = findPossiblePaths(data_example, false);
+    document.querySelector('.app').innerHTML = findPossiblePaths(data, true);
 }
 
 export { findPossiblePaths };
