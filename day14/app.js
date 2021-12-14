@@ -23,11 +23,18 @@ const grow = (polymer, rules) => {
     return newPolymer;
 }
 
+const getPolymer = (template, rules, steps) => {
+    let polymer = template;  
+    for (let i = 0; i < steps; i++) {
+        polymer = grow(polymer, rules);
+    }
+    return polymer;
+}
+
 const partOne = data => {
     const { template, rules } = parseData(data);
-    const stepsNumber = 10;
-    let polymer = template;  
-    return grow(polymer, rules);
+    const polymer = getPolymer(template, rules, 10);
+
 }
 
 window.onload = () => {
