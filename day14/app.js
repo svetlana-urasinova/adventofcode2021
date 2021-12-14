@@ -31,10 +31,19 @@ const getPolymer = (template, rules, steps) => {
     return polymer;
 }
 
+const getFrequency = polymer => {
+    const frequencies = polymer.split('').reduce((acc, el) => {
+        acc[el] = acc[el] ? ++acc[el] : 1;
+        return acc;
+    }, {});
+    return Object.entries(frequencies).sort((a, b) => a[1] - b[1]).map(arr => {return {el: arr[0], frequency: arr[1]}});
+}
+
 const partOne = data => {
     const { template, rules } = parseData(data);
     const polymer = getPolymer(template, rules, 10);
-
+    const frequencies = getFrequency(polymer);
+    
 }
 
 window.onload = () => {
