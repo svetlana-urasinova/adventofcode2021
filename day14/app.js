@@ -11,8 +11,8 @@ const parseTemplate = template => {
     for (let i = 0; i < template.length - 1; i++) {
         const current = template[i];
         const next = template[i + 1];
-        if (res[current] === undefined) { res[current] = {}};
-        res[current][next] = res[current][next] === undefined ? 1 : ++res[current][next];
+        res[current] = res[current] || {};
+        res[current][next] = ++res[current][next] || 1;
     }
     return res;
 }
