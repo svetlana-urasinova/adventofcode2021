@@ -1,1 +1,0 @@
-export const data_example2 = `38006F45291200`;
